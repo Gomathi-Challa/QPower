@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q-POWER: D3CODE 2025 Presentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .presentation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .slide {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 40px;
+            border-radius: 15px 15px 0 0;
+            margin: -40px -40px 30px -40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="75" cy="75" r="1.5" fill="rgba(255,255,255,0.05)"/></svg>') repeat;
+        }
+
+        .slide-number {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        h2 {
+            font-size: 2em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        h3 {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #667eea;
+            margin: 25px 0 15px 0;
+        }
+
+        .tagline {
+            font-size: 1.3em;
+            font-style: italic;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .team-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(240,147,251,0.3);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(240,147,251,0.4);
+        }
+
+        .team-name {
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .team-role {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .problem-card {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #ff6b6b;
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .solution-card {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #00b4db;
+        }
+
+        .impact-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border-left: 5px solid #ff8a80;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: #d84315;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1em;
+            color: #5d4037;
+            margin-top: 5px;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .tech-tag {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(102,126,234,0.3);
+        }
+
+        .architecture-diagram {
+            background: #f8f9fa;
+            border: 2px dashed #667eea;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .layer {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 700;
+            color: #2d3436;
+        }
+
+        .sdg-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .sdg-card {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 20px 10px;
+            box-shadow: 0 8px 25px rgba(0,180,219,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0,180,219,0.4);
+        }
+
+        .links-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+        }
+
+        .links-section a {
+            color: #ffeaa7;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .links-section a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 25px;
+            }
+            .slide-header {
+                padding: 20px 25px;
+                margin: -25px -25px 20px -25px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.6em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1: Title & Team -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">1/10</div>
+                <h1>Project Q-POWER</h1>
+                <div class="tagline">Quantum-Optimized Platform for Worldwide EV Resilience</div>
+                <div class="tagline">"From Anxiety to Empowerment: Making EV Resilience a Reality for Everyone"</div>
+            </div>
+            
+            <div class="links-section">
+                <h3>🔗 Project Resources</h3>
+                <p><strong>Comprehensive Documentation:</strong><br>
+                <a href="https://docs.google.com/document/d/1md01p6_b4922zeEVJN7EcjyZrbA7WNE9vYzZUg9WJiw/edit?usp=sharing" target="_blank">https://docs.google.com/document/d/1md01p6_b4922zeEVJN7EcjyZrbA7WNE9vYzZUg9WJiw/edit?usp=sharing</a></p>
+                
+                <p><strong>UI Prototype:</strong><br>
+                <a href="https://gomathi-challa.github.io/QPower/" target="_blank">https://gomathi-challa.github.io/QPower/</a></p>
+            </div>
+
+            <h2>👥 Team Q-POWER</h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-name">Challa Gomathi</div>
+                    <div class="team-role">Full Stack Developer, ML/AI Specialist<br>System Architecture & Quantum Integration</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-name">Maligireddy Rishithaa</div>
+                    <div class="team-role">Frontend Developer, ML Engineer<br>User Experience & Predictive Analytics</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-name">Krithi Pavagada</div>
+                    <div class="team-role">Frontend Developer, ML Engineer<br>Interface Design & Data Visualization</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-name">Neha Malipatel</div>
+                    <div class="team-role">Backend Developer, ML Engineer<br>API Development & Model Training</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Problem Statement -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">2/10</div>
+                <h1>🚨 The Tripartite EV Crisis</h1>
+            </div>
+            
+            <h2>Critical Barriers Preventing EV Adoption in Growing Economies</h2>
+            
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <h3>💰 Economic Inaccessibility</h3>
+                    <p><span class="highlight">86% informal workforce</span> (taxi drivers, delivery personnel) cannot afford EVs. Battery replacement costs exceed <span class="highlight">40% of vehicle cost</span>, creating overwhelming anxiety for daily-income earners who lack traditional financing access.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <h3>⚡ Infrastructural Instability</h3>
+                    <p>Frequent power fluctuations, rolling blackouts, and extreme temperatures <span class="highlight">(>45°C)</span> cause unreliable charging experiences. This accelerates battery degradation by <span class="highlight">30-40%</span>, systematically eroding user trust in EV reliability.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <h3>🛣️ Operational Inefficiency</h3>
+                    <p>Mixed-traffic conditions create stop-start patterns that reduce EV efficiency gains by <span class="highlight">25-30%</span>. Combined with lack of intuitive optimization tools, this leads to severe range anxiety and suboptimal vehicle utilization.</p>
+                </div>
+            </div>
+
+            <div style="background: #ffe6e6; padding: 20px; border-radius: 10px; border-left: 5px solid #ff4757;">
+                <h3>🔄 The Vicious Cycle</h3>
+                <p><strong>These challenges are interconnected and cannot be solved in isolation.</strong> Traditional siloed solutions fail because they don't address the systemic nature of this mobility crisis that keeps sustainable transport out of reach for those who need it most.</p>
+            </div>
+        </div>
+
+        <!-- Slide 3: Our Solution -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">3/10</div>
+                <h1>🚀 Q-POWER Ecosystem</h1>
+            </div>
+            
+            <h2>Integrated AI & Quantum-Powered Solution Breaking the Adoption Barrier</h2>
+            
+            <div class="solution-grid">
+                <div class="solution-card">
+                    <h3>🔄 QMEP: Quantum-Enhanced Mobility & Energy Platform</h3>
+                    <p><strong>Tackles Economic Barriers:</strong> P2P sharing marketplace for EVs and chargers. AI matches supply/demand with dynamic pricing, creating new income streams and democratizing access to clean mobility.</p>
+                </div>
+                
+                <div class="solution-card">
+                    <h3>🔋 IGHMS: Intelligent Grid Health Monitoring</h3>
+                    <p><strong>Solves Infrastructure Issues:</strong> Distributed sensor network using EVs as nodes. Predicts grid instability, protects batteries, provides "Grid Health" scores for optimal charging decisions.</p>
+                </div>
+                
+                <div class="solution-card">
+                    <h3>🧠 AIOI: AI-Powered Operational Intelligence</h3>
+                    <p><strong>Optimizes Operations:</strong> "Google Maps for EVs" - fuses traffic, weather, topography, and real-time pricing data to provide the single optimal route minimizing time and cost.</p>
+                </div>
+                
+                <div class="solution-card">
+                    <h3>🗣️ NATAS: Natural Language Advisory Service</h3>
+                    <p><strong>Makes Everything Accessible:</strong> AI agent translating complex data into simple, voice-activated advice. "Hey NATAS, I need to deliver by 3 PM with half charge" → Complete solution.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Expected Impact -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">4/10</div>
+                <h1>📈 Transformational Impact</h1>
+            </div>
+            
+            <div class="impact-stats">
+                <div class="stat-card">
+                    <span class="stat-number">22%</span>
+                    <div class="stat-label">Energy Reduction per EV</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">35%</span>
+                    <div class="stat-label">Faster Adoption Rate</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">25%</span>
+                    <div class="stat-label">Less Battery Degradation</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">500MW</span>
+                    <div class="stat-label">Power Generation Avoided</div>
+                </div>
+            </div>
+
+            <h3>🌍 Real-World Impact Beyond Numbers</h3>
+            <p><strong>For the Informal Economy:</strong> Taxi drivers and delivery workers gain access to affordable, reliable EVs while earning extra income from their assets during downtime.</p>
+            
+            <p><strong>For Cities:</strong> Reduced emissions, optimized grid usage, and more predictable energy demand enable better urban planning and cleaner air quality.</p>
+            
+            <p><strong>For the Planet:</strong> Accelerated EV adoption in the world's fastest-growing economies directly tackles climate change where it matters most - in emerging markets driving future emissions.</p>
+
+            <div class="sdg-container">
+                <div class="sdg-card">SDG 7<br>Clean Energy</div>
+                <div class="sdg-card">SDG 8<br>Economic Growth</div>
+                <div class="sdg-card">SDG 11<br>Sustainable Cities</div>
+                <div class="sdg-card">SDG 13<br>Climate Action</div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Theme Alignment -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">5/10</div>
+                <h1>🎯 Perfect Theme Alignment</h1>
+            </div>
+            
+            <h2>"Shaping New Frontiers – Data, Intelligence & Quantum for Positive Social Impact"</h2>
+            
+            <div style="background: linear-gradient(135deg, #e17055 0%, #fdcb6e 100%); padding: 25px; border-radius: 12px; margin: 20px 0;">
+                <h3>📊 Data Frontiers</h3>
+                <p>We create a <strong>novel data ecosystem</strong> by fusing disparate, real-time streams (grid, traffic, vehicle, weather) that have never been unified before. This creates an unprecedented holistic view of urban mobility and energy use, turning scattered data into actionable intelligence.</p>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%); color: white; padding: 25px; border-radius: 12px; margin: 20px 0;">
+                <h3>🤖 Intelligence Frontiers</h3>
+                <p>We employ <strong>collaborative AI</strong> where multiple specialized agents (routing, battery health, grid analytics, NLP) work together to solve complex, multi-domain problems. This represents AI cooperation beyond single-model limitations.</p>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%); color: white; padding: 25px; border-radius: 12px; margin: 20px 0;">
+                <h3>⚛️ Quantum Frontiers</h3>
+                <p>We pragmatically apply <strong>quantum-inspired algorithms</strong> (VQE for battery degradation modeling, quantum annealing for multi-variable optimization) to solve computationally intractable problems that stymie classical computers, delivering tangible efficiency gains.</p>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #00b894 0%, #00cec9 100%); color: white; padding: 25px; border-radius: 12px; margin: 20px 0;">
+                <h3>🌍 Positive Social Impact</h3>
+                <p>This isn't technology for the affluent—it's designed to <strong>democratize advanced tech for the informal economy</strong>, accelerate green transition, and build resilient cities. Impact at societal scale where it's needed most.</p>
+            </div>
+        </div>
+
+        <!-- Slide 6: Market Validation -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">6/10</div>
+                <h1>✅ Proven Market Need</h1>
+            </div>
+            
+            <h2>The Demand is Real and Urgent</h2>
+
+            <div style="background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%); padding: 25px; border-radius: 12px; margin: 20px 0;">
+                <h3>📋 Validated Pain Points</h3>
+                <p><strong>"Range Anxiety" is the #1 barrier</strong> to EV adoption in every major consumer survey (BloombergNEF, Deloitte). The financing struggles of informal workers are extensively documented by World Bank studies. These aren't hypothetical problems—they're preventing sustainable transport today.</p>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #81ecec 0%, #74b9ff 100%); padding: 25px; border-radius: 12px; margin: 20px 0;">
+                <h3>🎯 Proven Solution Models</h3>
+                <p><strong>Waze/Google Maps:</strong> Billions of users prove desperate need for real-time, predictive routing.<br>
+                <strong>Airbnb:</strong> Massive success validates P2P asset-sharing viability.<br>
+                <strong>We're applying these proven concepts to the high-stakes EV domain.</strong></p>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%); padding: 25px; border-radius: 12px; margin: 20px 0;">
+                <h3>🔍 Existing Fragmented Solutions</h3>
+                <p><strong>PlugShare</strong> (charger maps): 500K+ users<br>
+                <strong>A Better Route Planner:</strong> 1M+ users<br>
+                <strong>The Problem:</strong> Users juggle multiple apps for incomplete solutions. Our integrated, AI-native approach provides the seamless, complete solution they desperately need.</p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Competitive Analysis -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">7/10</div>
+                <h1>🏆 Competitive Advantage</h1>
+            </div>
+            
+            <h2>Fragmented Competition Creates Our Opportunity</h2>
+
+            <div style="background: #f8f9fa; padding: 25px; border-radius: 12px; margin: 20px 0; border-left: 5px solid #e74c3c;">
+                <h3>⚡ AIOI Competitors</h3>
+                <p><strong>A Better Route Planner (ABRP):</strong> Closest competitor but requires significant user configuration, lacks deep grid integration, precise battery telemetry, and has no P2P ecosystem or AI agent interface.</p>
+            </div>
+
+            <div style="background: #f8f9fa; padding: 25px; border-radius: 12px; margin: 20px 0; border-left: 5px solid #f39c12;">
+                <h3>🚗 QMEP Analogues</h3>
+                <p><strong>Turo (car sharing):</strong> Successful model but not specialized for EV ecosystem challenges (battery health monitoring, charging optimization, grid integration).</p>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #00b894 0%, #00cec9 100%); color: white; padding: 25px; border-radius: 12px; margin: 20px 0;">
+                <h3>🎯 Our Unique Differentiator</h3>
+                <p><strong>Q-POWER's integrated approach creates powerful network effects:</strong><br>
+                • IGHMS data makes AIOI smarter<br>
+                • QMEP network provides more data for AIOI<br>
+                • NATAS makes everything accessible<br>
+                <strong>No competitor offers this synergistic, platform-level solution.</strong></p>
+            </div>
+        </div>
+
+        <!-- Slide 8: Technology Stack -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">8/10</div>
+                <h1>⚙️ Technology Stack</h1>
+            </div>
+            
+            <h2>100% Free & Open-Source Software (FOSS) Commitment</h2>
+
+            <div class="tech-stack">
+                <div class="tech-tag">Python</div>
+                <div class="tech-tag">JavaScript/Node.js</div>
+                <div class="tech-tag">FastAPI</div>
+                <div class="tech-tag">React Native</div>
+                <div class="tech-tag">PostgreSQL</div>
+                <div class="tech-tag">TimescaleDB</div>
+                <div class="tech-tag">Redis</div>
+                <div class="tech-tag">Docker</div>
+                <div class="tech-tag">Kubernetes</div>
+                <div class="tech-tag">Qiskit</div>
+                <div class="tech-tag">TensorFlow</div>
+                <div class="tech-tag">PyTorch</div>
+                <div class="tech-tag">Pandas</div>
+                <div class="tech-tag">NumPy</div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 12px; margin: 20px 0;">
+                <h3>☁️ Cloud & Quantum Infrastructure</h3>
+                <p><strong>Cloud:</strong> AWS/Azure/GCP with GPU support for model training<br>
+                <strong>Quantum:</strong> Starting with simulators (Qiskit, Cirq), roadmap to actual quantum hardware via cloud providers (AWS Braket, Azure Quantum)<br>
+                <strong>DevOps:</strong> Terraform, GitLab CI/CD for automated deployment</p>
+            </div>
+
+            <div style="background: #ffe6e6; padding: 20px; border-radius: 10px; border-left: 5px solid #ff4757;">
+                <h3>🔗 Strategic Data Partnerships</h3>
+                <p>Success requires API access from utilities, map providers, and government transport bodies. Our modular architecture allows independent development while building these critical partnerships.</p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Architecture -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">9/10</div>
+                <h1>🏗️ System Architecture</h1>
+            </div>
+            
+            <div class="architecture-diagram">
+                <h3>📱 Experience Layer</h3>
+                <div class="layer">Mobile/Web Apps + NATAS AI Agent Interface</div>
+                
+                <h3>🚀 Application Layer</h3>
+                <div class="layer">QMEP Service | IGHMS Service | AIOI Service | NATAS Service</div>
+                
+                <h3>🧠 Intelligence Layer</h3>
+                <div class="layer">Optimization Engine (Classical + Quantum) | ML Models | API Gateway</div>
+                
+                <h3>📊 Data Layer</h3>
+                <div class="layer">Data Ingestion | TimescaleDB | Redis Cache | External APIs</div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); padding: 25px; border-radius: 12px; margin: 20px 0;">
+                <h3>🔧 Component Architecture</h3>
+                <p><strong>Microservices Design:</strong> Each service (QMEP, IGHMS, AIOI, NATAS) is independently deployable for scalability.<br>
+                <strong>API-First:</strong> All communication through documented APIs enabling third-party integration.<br>
+                <strong>Event-Driven:</strong> Real-time data processing using message queues for responsive user experience.</p>
+            </div>
+
+            <div style="background: #e8f5e8; padding: 20px; border-radius: 10px; border-left: 5px solid #27ae60;">
+                <h3>📈 Scalability & Resilience</h3>
+                <p><strong>Horizontal Scaling:</strong> Kubernetes orchestration allows dynamic scaling based on demand.<br>
+                <strong>Data Redundancy:</strong> Multi-region deployment with automated failover ensures 99.9% uptime.</p>
+            </div>
+        </div>
+
+        <!-- Slide 10: Final Word -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">10/10</div>
+                <h1>🚀 The Last Word</h1>
+            </div>
+            
+            <h2>Building the Foundation for Sustainable Global Mobility</h2>
+
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 12px; margin: 20px 0;">
+                <h3>💡 Our Vision: Beyond Just an App</h3>
+                <p><strong>We're not building another mobility app—we're creating the resilient infrastructure for the next generation of global transportation.</strong> Every line of code serves communities who have been left behind by the current EV transition.</p>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #00b894 0%, #00cec9 100%); color: white; padding: 25px; border-radius: 12px; margin: 20px 0;">
+                <h3>🔧 Pragmatic Modularity</h3>
+                <p><strong>Each service delivers immediate value independently</strong> while building toward our complete vision. QMEP can launch as a standalone P2P platform. AIOI can serve existing EV owners today. This modular approach ensures rapid user acquisition and revenue generation while we scale.</p>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #e17055 0%, #fdcb6e 100%); color: white; padding: 25px; border-radius: 12px; margin: 20px 0;">
+                <h3>⚛️ Quantum-Ready Architecture</h3>
+                <p><strong>We have a clear roadmap to integrate quantum computing as the technology matures.</strong> Starting with simulators today, we'll seamlessly transition to actual quantum hardware. Our algorithms are designed to scale from classical optimization to true quantum advantage.</p>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%); color: white; padding: 25px; border-radius: 12px; margin: 20px 0;">
+                <h3>🌍 Impact Where It Matters Most</h3>
+                <p><strong>We focus on real-world impact in growing economies</strong>—where the next billion vehicles will be deployed, where energy grids are most stressed, and where sustainable transport can prevent rather than remediate climate damage. This is where technology can create the most profound positive change.</p>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%); color: white; padding: 25px; border-radius: 12px; margin: 20px 0;">
+                <h3>🚀 Ready to Transform Mobility</h3>
+                <p><strong>Q-POWER represents the convergence of AI, quantum computing, and social impact.</strong> We're using deep technology not as a buzzword, but as a practical tool to solve the most pressing barriers to a sustainable future. We're ready to build the platform that makes EV resilience a reality for everyone.</p>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="download-btn" onclick="window.print()">📄 Download Presentation</button>
+                <button class="download-btn" onclick="generatePDF()">📎 Export as PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling and animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate slides on scroll
+            const slides = document.querySelectorAll('.slide');
+            
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const slideObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            slides.forEach(slide => {
+                slideObserver.observe(slide);
+            });
+
+            // Add hover effects to cards
+            const cards = document.querySelectorAll('.team-card, .problem-card, .solution-card, .stat-card, .sdg-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+
+        // PDF generation function
+        function generatePDF() {
+            // Create a clean version for PDF
+            const printWindow = window.open('', '_blank');
+            const htmlContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Q-POWER Presentation - D3CODE 2025</title>
+                    <style>
+                        ${document.querySelector('style').textContent}
+                        body { background: white !important; }
+                        .slide { break-after: page; }
+                        .download-btn { display: none; }
+                        @media print {
+                            .slide { break-after: page; }
+                            body { background: white !important; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${document.querySelector('.presentation-container').outerHTML}
+                </body>
+                </html>
+            `;
+            
+            printWindow.document.write(htmlContent);
+            printWindow.document.close();
+            
+            setTimeout(() => {
+                printWindow.print();
+                printWindow.close();
+            }, 1000);
+        }
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            const slides = document.querySelectorAll('.slide');
+            let currentSlide = 0;
+            
+            // Find current visible slide
+            slides.forEach((slide, index) => {
+                const rect = slide.getBoundingClientRect();
+                if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+                    currentSlide = index;
+                }
+            });
+            
+            if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+                if (currentSlide < slides.length - 1) {
+                    slides[currentSlide + 1].scrollIntoView({ behavior: 'smooth' });
+                }
+                e.preventDefault();
+            } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                if (currentSlide > 0) {
+                    slides[currentSlide - 1].scrollIntoView({ behavior: 'smooth' });
+                }
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
